@@ -143,6 +143,13 @@ class Quantity(np.ndarray):
     def magnitude(self):
         return self.view(type=np.ndarray)
 
+    def magnitude_in(self, units=None):
+        """Return magnitude of quantity rescaled to the specified units."""
+        if units is None:
+            return self.magnitude
+        rescaled = self.rescale(units)
+        return rescaled.magnitude
+
     @property
     def simplified(self):
         rq = 1*unit_registry['dimensionless']
